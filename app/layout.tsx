@@ -5,35 +5,36 @@ import Footer from "@/components/layout/footer";
 import { Suspense } from "react";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Navbar from "@/components/layout/navbar";
-import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata = {
-  title: "Precedent - Building blocks for your Next.js project",
+  title: "Jill.ai — Safety infrastructure for the next internet",
   description:
-    "Precedent is the all-in-one solution for your Next.js project. It includes a design system, authentication, analytics, and more.",
-  metadataBase: new URL("https://precedent.dev"),
+    "Privacy-first safety infrastructure for children, families, educators, and platforms.",
+  metadataBase: new URL("https://jill.ai"),
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={cx(sfPro.variable, inter.variable)}>
-          <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
-          <Suspense fallback="...">
-            <Navbar />
-          </Suspense>
-          <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
-            {children}
-          </main>
-          <Footer />
-          <VercelAnalytics />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body
+        className={cx(
+          sfPro.variable,
+          inter.variable,
+          "bg-[#06070b] text-zinc-100 antialiased",
+        )}
+      >
+        <div className="fixed inset-0 -z-20 bg-[#06070b]" />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
+        <main className="flex min-h-screen w-full flex-col items-center pt-24">{children}</main>
+        <Footer />
+        <VercelAnalytics />
+      </body>
+    </html>
   );
 }

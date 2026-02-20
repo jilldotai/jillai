@@ -1,54 +1,44 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/lib/hooks/use-scroll";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+
+const links = [
+  { label: "Products", href: "/products" },
+  { label: "Research", href: "/research" },
+  { label: "Alpha", href: "/alpha" },
+  { label: "Partners", href: "/partners" },
+  { label: "About", href: "/about" },
+];
 
 export default function NavBar() {
-  const scrolled = useScroll(50);
+  const scrolled = useScroll(18);
 
   return (
-    <>
+    <header className="fixed top-0 z-40 flex w-full justify-center px-4 pt-4">
       <div
-        className={`fixed top-0 flex w-full justify-center ${
+        className={`w-full max-w-6xl rounded-full border px-4 transition-all duration-500 sm:px-6 ${
           scrolled
-            ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
-            : "bg-white/0"
-        } z-30 transition-all`}
+            ? "border-white/20 bg-black/80 backdrop-blur-2xl"
+            : "border-white/10 bg-black/40 backdrop-blur-md"
+        }`}
       >
-        <div className="mx-5 flex h-16 w-full max-w-screen-xl items-center justify-between">
-          <Link href="/" className="flex items-center font-display text-2xl">
-            <Image
-              src="/logo.png"
-              alt="Precedent logo"
-              width="30"
-              height="30"
-              className="mr-2 rounded-sm"
-            ></Image>
-            <p>Precedent</p>
+        <div className="flex h-14 items-center justify-between gap-4">
+          <Link href="/" className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-100">
+            Jill.ai
           </Link>
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="rounded-full border border-black bg-black px-4 py-1.5 text-sm text-white transition-colors hover:bg-white hover:text-black">
-                Sign In
-              </button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton>
-              <UserButton.MenuItems>
-                <UserButton.Link
-                  label="Dashboard"
-                  labelIcon={<LayoutDashboard className="h-4 w-4" />}
-                  href="/"
-                />
-              </UserButton.MenuItems>
-            </UserButton>
-          </SignedIn>
+          <nav className="hidden items-center gap-6 text-xs uppercase tracking-[0.16em] text-zinc-400 lg:flex">
+            {links.map((link) => (
+              <Link key={link.label} href={link.href} className="transition hover:text-zinc-100">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <Link href="/alpha" className="rounded-full bg-zinc-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-zinc-950">
+            Join Alpha
+          </Link>
         </div>
       </div>
-    </>
+    </header>
   );
 }
