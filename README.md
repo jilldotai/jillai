@@ -93,3 +93,34 @@ https://github.com/user-attachments/assets/aef3c099-e371-43bf-b426-f5ba73185a7c
 ## Author
 
 - Steven Tey ([@steventey](https://twitter.com/steventey))
+
+
+## Jill.ai setup checklist (what you should configure on your side)
+
+1. Copy `.env.example` to `.env.local`.
+2. Set `NEXT_PUBLIC_SITE_URL` to your real domain for production (for now: `http://localhost:3000`).
+3. Keep `NEXT_PUBLIC_ENABLE_LENIS=false` until Lenis is installed and tested, then flip to `true`.
+4. If you are enabling the secure contact flow, set rate-limit env vars (`CONTACT_RATE_LIMIT_MAX`, `CONTACT_RATE_LIMIT_WINDOW_MS`) and `CONTACT_NOTIFICATION_TO`.
+5. Before pushing: run `pnpm lint` and `pnpm build`.
+
+## Preview checklist (so you can see the page changes immediately)
+
+### Local preview
+1. Install dependencies: `pnpm install`.
+2. Start dev server: `pnpm dev`.
+3. Open `http://localhost:3000`.
+
+### GitHub + Vercel preview
+1. Push your working branch (for example `work`) to GitHub.
+2. Open a Pull Request from `work` into `main`.
+3. Vercel creates a preview URL automatically for that PR.
+4. Open the PR checks/details and click the Vercel preview link.
+
+### Optional package install for smooth scroll
+If you want to enable Lenis locally:
+
+```bash
+pnpm add @studio-freight/react-lenis
+```
+
+(Use only after your registry access is working; previous CI-like environment had restricted registry access.)
